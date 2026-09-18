@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farmacia Vitalis | Atención farmacéutica profesional</title>
+  <meta name="description" content="Farmacia Vitalis: medicamentos, atención farmacéutica, domicilios y convenios empresariales.">
+  <style>
+    :root {
+      --pine: #0E4A43;
+      --pine-dark: #0A3630;
+      --mint: #E4F1EC;
+      --paper: #FBFCFB;
+      --ink: #16231F;
+      --muted: #4F5F5A;
+      --line: #D3DFDA;
+      --white: #FFFFFF;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-head: Georgia, "Times New Roman", serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; margin: 0; font-weight: 700; }
+    p { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid #F0B429; outline-offset: 3px; border-radius: 2px; }
+
+    .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+
+    /* Encabezado */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; min-height: 68px;
+    }
+    .brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--pine); }
+    .brand svg { width: 34px; height: 34px; flex: none; }
+    .brand span { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; letter-spacing: .01em; }
+    .nav { display: flex; align-items: center; gap: 1.5rem; }
+    .nav a { text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--ink); }
+    .nav a:hover { color: var(--pine); text-decoration: underline; text-underline-offset: 6px; }
+    .nav .nav-cta {
+      background: var(--pine); color: var(--white);
+      padding: .55rem 1.1rem; border-radius: 4px;
+    }
+    .nav .nav-cta:hover { background: var(--pine-dark); color: var(--white); text-decoration: none; }
+
+    /* Portada */
+    .hero { background: var(--pine); color: var(--white); padding: 5rem 0; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 3.5rem; align-items: center; }
+    .hero h1 { font-size: clamp(2rem, 4.4vw, 3.2rem); max-width: 18ch; }
+    .hero p.lead { margin-top: 1.25rem; font-size: 1.1rem; max-width: 46ch; color: #D6E8E2; }
+    .hero-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .85rem; }
+    .btn {
+      display: inline-block; text-decoration: none; font-weight: 600;
+      padding: .8rem 1.5rem; border-radius: 4px; border: 2px solid transparent;
+      font-size: 1rem; font-family: inherit; cursor: pointer;
+    }
+    .btn-light { background: var(--white); color: var(--pine); }
+    .btn-light:hover { background: var(--mint); }
+    .btn-outline { border-color: #7FB1A6; color: var(--white); }
+    .btn-outline:hover { background: rgba(255,255,255,.1); }
+    .btn-solid { background: var(--pine); color: var(--white); }
+    .btn-solid:hover { background: var(--pine-dark); }
+
+    .hours {
+      background: var(--white); color: var(--ink);
+      border-radius: 6px; padding: 1.75rem 1.75rem 1.5rem;
+    }
+    .hours h2 { font-size: 1.25rem; color: var(--pine); margin-bottom: 1rem; }
+    .hours dl { margin: 0; }
+    .hours .row {
+      display: flex; justify-content: space-between; gap: 1rem;
+      padding: .6rem 0; border-top: 1px solid var(--line);
+    }
+    .hours dt { color: var(--muted); }
+    .hours dd { margin: 0; font-weight: 600; text-align: right; }
+    .hours .note { margin-top: .9rem; font-size: .9rem; color: var(--muted); }
+
+    /* Secciones */
+    .section { padding: 5rem 0; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--pine); }
+    .section-intro { margin-top: .8rem; color: var(--muted); max-width: 58ch; }
+
+    /* Nosotros */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2.5rem; align-items: start; }
+    .about-text p + p { margin-top: 1rem; }
+    .about-text { max-width: 60ch; }
+    .pillars { display: grid; gap: 1.75rem; }
+    .pillar { border-left: 4px solid var(--pine); padding-left: 1.25rem; }
+    .pillar h3 { font-size: 1.15rem; color: var(--pine); margin-bottom: .35rem; }
+    .pillar p { color: var(--muted); }
+
+    /* Servicios */
+    .services { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .service-list {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 2.5rem; margin-top: 3rem;
+    }
+    .service { border-top: 3px solid var(--pine); padding-top: 1.25rem; }
+    .service svg {
+      width: 30px; height: 30px; stroke: var(--pine); fill: none;
+      stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+      margin-bottom: .9rem;
+    }
+    .service h3 { font-size: 1.15rem; margin-bottom: .45rem; }
+    .service p { color: var(--muted); font-size: .97rem; }
+
+    /* Contacto */
+    .contact { background: var(--mint); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; margin-top: 2.5rem; align-items: start; }
+    .contact-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.25rem; }
+    .contact-list strong { display: block; color: var(--pine); font-size: .95rem; margin-bottom: .1rem; }
+    .contact-list a { text-underline-offset: 3px; }
+
+    form.contact-form {
+      background: var(--white); padding: 2rem; border-radius: 6px;
+      border: 1px solid var(--line); display: grid; gap: 1.1rem;
+    }
+    .field label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: .35rem; }
+    .field input, .field textarea {
+      width: 100%; font: inherit; color: var(--ink);
+      padding: .7rem .8rem; border: 1px solid #9DB3AB; border-radius: 4px; background: var(--white);
+    }
+    .field textarea { min-height: 120px; resize: vertical; }
+    .field input:focus, .field textarea:focus { border-color: var(--pine); outline: 3px solid #F0B429; outline-offset: 1px; }
+    .form-status { min-height: 1.4rem; font-size: .93rem; color: var(--pine); font-weight: 600; }
+    .form-hint { font-size: .85rem; color: var(--muted); }
+
+    /* Pie de página */
+    .site-footer { background: var(--pine-dark); color: #C5DBD4; padding: 2rem 0; font-size: .92rem; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; }
+
+    /* Adaptación a pantallas pequeñas */
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .service-list { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding: 3.5rem 0; }
+      .section { padding: 3.5rem 0; }
+    }
+    @media (max-width: 600px) {
+      .service-list { grid-template-columns: 1fr; }
+      .nav { gap: .9rem; }
+      .nav a { font-size: .88rem; }
+      .nav .nav-cta { padding: .45rem .8rem; }
+      .brand span { font-size: 1.1rem; }
+      .brand svg { width: 28px; height: 28px; }
+      form.contact-form { padding: 1.4rem; }
+    }
+    @media (max-width: 420px) {
+      .nav a:not(.nav-cta):nth-child(1) { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#inicio" aria-label="Farmacia Vitalis, ir al inicio">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="8" fill="#0E4A43"/>
+          <path d="M17 9h6v8h8v6h-8v8h-6v-8H9v-6h8z" fill="#FFFFFF"/>
+        </svg>
+        <span>Farmacia Vitalis</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#nosotros">Nosotros</a>
+        <a href="#servicios">Servicios</a>
+        <a class="nav-cta" href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Portada -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Su salud, atendida con responsabilidad y cercanía.</h1>
+          <p class="lead">Dispensamos medicamentos con orientación farmacéutica profesional, para personas, familias y empresas.</p>
+          <div class="hero-actions">
+            <a class="btn btn-light" href="#servicios">Ver servicios</a>
+            <a class="btn btn-outline" href="#contacto">Escribirnos</a>
+          </div>
+        </div>
+
+        <aside class="hours" aria-labelledby="horario-titulo">
+          <h2 id="horario-titulo">Horario de atención</h2>
+          <dl>
+            <div class="row"><dt>Lunes a viernes</dt><dd>7:00 a. m. – 9:00 p. m.</dd></div>
+            <div class="row"><dt>Sábados</dt><dd>8:00 a. m. – 8:00 p. m.</dd></div>
+            <div class="row"><dt>Domingos y festivos</dt><dd>9:00 a. m. – 2:00 p. m.</dd></div>
+          </dl>
+          <p class="note">Domicilios disponibles durante todo el horario.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Nosotros -->
+    <section class="section" id="nosotros">
+      <div class="wrap">
+        <h2 class="section-title">Nosotros</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>Farmacia Vitalis es una droguería independiente enfocada en dispensar medicamentos de calidad y orientar a cada paciente sobre su uso correcto.</p>
+            <p>Trabajamos con proveedores autorizados, mantenemos la cadena de frío y contamos con un químico farmacéutico responsable que respalda cada dispensación.</p>
+            <p>También acompañamos a empresas con convenios de suministro para sus equipos de trabajo.</p>
+          </div>
+          <div class="pillars">
+            <div class="pillar">
+              <h3>Misión</h3>
+              <p>Facilitar el acceso a medicamentos seguros y a orientación farmacéutica clara, con un servicio ágil y humano.</p>
+            </div>
+            <div class="pillar">
+              <h3>Visión</h3>
+              <p>Ser la farmacia de confianza de nuestra comunidad y de las empresas que cuidan la salud de su gente.</p>
+            </div>
+            <div class="pillar">
+              <h3>Valores</h3>
+              <p>Ética profesional, transparencia en los precios, respeto por el paciente y mejora constante.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <section class="section services" id="servicios">
+      <div class="wrap">
+        <h2 class="section-title">Servicios</h2>
+        <p class="section-intro">Todo lo que necesita para cuidar su salud, en un solo lugar.</p>
+
+        <div class="service-list">
+          <article class="service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 20.5 3.5 13.5a4.95 4.95 0 0 1 7-7l7 7a4.95 4.95 0 0 1-7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+            <h3>Medicamentos con fórmula</h3>
+            <p>Dispensación de medicamentos con prescripción médica, con verificación y explicación de la dosis.</p>
+          </article>
+          <article class="service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+            <h3>Venta libre y cuidado personal</h3>
+            <p>Analgésicos, vitaminas, dermocosmética, higiene, bebés y botiquín para el hogar.</p>
+          </article>
+          <article class="service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+            <h3>Domicilios</h3>
+            <p>Reciba sus productos en casa u oficina, con empaque seguro y control de temperatura cuando se requiere.</p>
+          </article>
+          <article class="service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+            <h3>Control de tensión y glucosa</h3>
+            <p>Toma de presión arterial y glucometría en el punto de atención, sin cita previa.</p>
+          </article>
+          <article class="service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></svg>
+            <h3>Inyectología</h3>
+            <p>Aplicación de medicamentos inyectables con personal capacitado y material desechable.</p>
+          </article>
+          <article class="service">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <h3>Convenios empresariales</h3>
+            <p>Suministro programado de botiquines y medicamentos para empresas, con facturación a su medida.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="section contact" id="contacto">
+      <div class="wrap">
+        <h2 class="section-title">Contacto</h2>
+        <p class="section-intro">Consulte disponibilidad, solicite un domicilio o pida una propuesta para su empresa.</p>
+
+        <div class="contact-grid">
+          <ul class="contact-list">
+            <li><strong>Dirección</strong>Calle 123 # 45-67, Local 2</li>
+            <li><strong>Teléfono</strong><a href="tel:+576010000000">(601) 000 0000</a></li>
+            <li><strong>WhatsApp</strong><a href="https://wa.me/570000000000" target="_blank" rel="noopener">+57 300 000 0000</a></li>
+            <li><strong>Correo</strong><a href="mailto:contacto@farmaciavitalis.com">contacto@farmaciavitalis.com</a></li>
+          </ul>
+
+          <form class="contact-form" id="form-contacto" novalidate>
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono o correo</label>
+              <input id="telefono" name="telefono" type="text" autocomplete="tel" required>
+            </div>
+            <div class="field">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" required></textarea>
+            </div>
+            <button class="btn btn-solid" type="submit">Enviar mensaje</button>
+            <p class="form-status" id="estado" role="status" aria-live="polite"></p>
+            <p class="form-hint">Al enviar se abrirá su programa de correo con el mensaje listo.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="anio">2026</span> Farmacia Vitalis. Todos los derechos reservados.</p>
+      <p>Los medicamentos de venta bajo fórmula requieren prescripción médica.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('anio').textContent = new Date().getFullYear();
+
+    var form = document.getElementById('form-contacto');
+    var estado = document.getElementById('estado');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nombre = form.nombre.value.trim();
+      var contacto = form.telefono.value.trim();
+      var mensaje = form.mensaje.value.trim();
+
+      if (!nombre || !contacto || !mensaje) {
+        estado.style.color = '#9B1C1C';
+        estado.textContent = 'Complete su nombre, un dato de contacto y el mensaje para continuar.';
+        return;
+      }
+
+      var asunto = 'Consulta desde la página web - ' + nombre;
+      var cuerpo = 'Nombre: ' + nombre + '\nContacto: ' + contacto + '\n\n' + mensaje;
+      estado.style.color = '';
+      estado.textContent = 'Abriendo su programa de correo…';
+      window.location.href = 'mailto:contacto@farmaciavitalis.com?subject=' +
+        encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+    });
+  </script>
+</body>
+</html>
