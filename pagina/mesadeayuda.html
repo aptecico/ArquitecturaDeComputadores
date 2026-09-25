@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mesa de Ayuda | Farmacia Vitalis</title>
+  <meta name="description" content="Mesa de ayuda de Farmacia Vitalis: preguntas frecuentes, soporte para domicilios, convenios empresariales y consultas farmacéuticas.">
+  <style>
+    :root {
+      --pine: #0E4A43;
+      --pine-dark: #0A3630;
+      --mint: #E4F1EC;
+      --paper: #FBFCFB;
+      --ink: #16231F;
+      --muted: #4F5F5A;
+      --line: #D3DFDA;
+      --white: #FFFFFF;
+      --accent: #F0B429;
+      --font-body: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-head: Georgia, "Times New Roman", serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; margin: 0; font-weight: 700; }
+    p { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+    .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
+
+    /* Encabezado (idéntico al index) */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; min-height: 68px;
+    }
+    .brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--pine); }
+    .brand svg { width: 34px; height: 34px; flex: none; }
+    .brand span { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; letter-spacing: .01em; }
+    .nav { display: flex; align-items: center; gap: 1.5rem; }
+    .nav a { text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--ink); }
+    .nav a:hover { color: var(--pine); text-decoration: underline; text-underline-offset: 6px; }
+    .nav .nav-cta {
+      background: var(--pine); color: var(--white);
+      padding: .55rem 1.1rem; border-radius: 4px;
+    }
+    .nav .nav-cta:hover { background: var(--pine-dark); color: var(--white); text-decoration: none; }
+
+    /* Portada mesa de ayuda */
+    .help-hero {
+      background: linear-gradient(135deg, var(--pine) 0%, var(--pine-dark) 100%);
+      color: var(--white);
+      padding: 4rem 0 3.5rem;
+      text-align: center;
+    }
+    .help-hero h1 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      max-width: 22ch;
+      margin-inline: auto;
+    }
+    .help-hero p {
+      margin-top: 1rem;
+      color: #D6E8E2;
+      max-width: 60ch;
+      margin-inline: auto;
+      font-size: 1.05rem;
+    }
+
+    /* Buscador */
+    .search-box {
+      margin-top: 2rem;
+      max-width: 620px;
+      margin-inline: auto;
+      position: relative;
+    }
+    .search-box svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px; height: 20px;
+      stroke: var(--muted); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      pointer-events: none;
+    }
+    .search-box input {
+      width: 100%;
+      font: inherit;
+      padding: .95rem 1rem .95rem 3rem;
+      border-radius: 50px;
+      border: 2px solid transparent;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 1rem;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Sección general */
+    .section { padding: 4rem 0; }
+    .section-title { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--pine); }
+    .section-intro { margin-top: .6rem; color: var(--muted); max-width: 60ch; }
+
+    /* Categorías rápidas */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .quick-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.5rem 1.25rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+    .quick-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--pine);
+      box-shadow: 0 10px 24px rgba(14,74,67,.10);
+    }
+    .quick-card svg {
+      width: 32px; height: 32px;
+      stroke: var(--pine); fill: none;
+      stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .quick-card h3 {
+      font-size: 1.05rem;
+      color: var(--pine);
+    }
+    .quick-card p {
+      font-size: .9rem;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    /* Preguntas frecuentes (acordeón) */
+    .faq-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .faq-item.open {
+      border-color: var(--pine);
+      box-shadow: 0 6px 16px rgba(14,74,67,.08);
+    }
+    .faq-item[hidden] { display: none; }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.15rem 1.4rem;
+      text-align: left;
+      font: inherit;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+    .faq-question:hover { background: var(--mint); }
+    .faq-question .chevron {
+      width: 20px; height: 20px;
+      stroke: var(--pine); fill: none;
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+      flex: none;
+      transition: transform .25s ease;
+    }
+    .faq-item.open .chevron { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+      padding: 0 1.4rem;
+      color: var(--muted);
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding: 0 1.4rem 1.25rem;
+    }
+    .faq-answer p + p { margin-top: .6rem; }
+    .faq-answer ul { margin: .5rem 0 0; padding-left: 1.2rem; }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .empty-state.visible { display: block; }
+    .empty-state svg {
+      width: 44px; height: 44px;
+      stroke: var(--muted); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+      margin-bottom: .75rem;
+    }
+
+    /* Canales de soporte */
+    .support-section { background: var(--mint); }
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .support-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 1.75rem 1.5rem;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+    .support-card svg {
+      width: 30px; height: 30px;
+      stroke: var(--pine); fill: none;
+      stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .support-card h3 {
+      font-size: 1.1rem;
+      color: var(--pine);
+    }
+    .support-card p { color: var(--muted); font-size: .95rem; flex: 1; }
+    .support-card a {
+      color: var(--pine);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: .93rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .support-card a svg {
+      width: 16px; height: 16px;
+      stroke: var(--pine);
+      stroke-width: 2;
+    }
+    .support-card a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Formulario de ticket */
+    .ticket-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3.5rem;
+      margin-top: 2.5rem;
+      align-items: start;
+    }
+    .ticket-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.25rem 0 0;
+      display: grid;
+      gap: 1rem;
+    }
+    .ticket-info li {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .ticket-info li svg {
+      width: 20px; height: 20px;
+      stroke: var(--pine); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      flex: none;
+      margin-top: 3px;
+    }
+
+    form.ticket-form {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: grid;
+      gap: 1.1rem;
+    }
+    .field label {
+      display: block;
+      font-weight: 600;
+      font-size: .92rem;
+      margin-bottom: .35rem;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      font: inherit;
+      color: var(--ink);
+      padding: .7rem .8rem;
+      border: 1px solid #9DB3AB;
+      border-radius: 4px;
+      background: var(--white);
+    }
+    .field textarea { min-height: 120px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--pine);
+      outline: 3px solid var(--accent);
+      outline-offset: 1px;
+    }
+    .btn {
+      display: inline-block; text-decoration: none; font-weight: 600;
+      padding: .8rem 1.5rem; border-radius: 4px; border: 2px solid transparent;
+      font-size: 1rem; font-family: inherit; cursor: pointer;
+    }
+    .btn-solid { background: var(--pine); color: var(--white); }
+    .btn-solid:hover { background: var(--pine-dark); }
+    .form-status { min-height: 1.4rem; font-size: .93rem; color: var(--pine); font-weight: 600; }
+    .form-hint { font-size: .85rem; color: var(--muted); }
+
+    /* Pie */
+    .site-footer { background: var(--pine-dark); color: #C5DBD4; padding: 2rem 0; font-size: .92rem; }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem 2rem; }
+    .footer-inner a { color: #C5DBD4; text-underline-offset: 3px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .quick-grid { grid-template-columns: repeat(2, 1fr); }
+      .support-grid { grid-template-columns: 1fr; }
+      .ticket-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .section { padding: 3rem 0; }
+      .help-hero { padding: 3rem 0 2.5rem; }
+    }
+    @media (max-width: 600px) {
+      .quick-grid { grid-template-columns: 1fr; }
+      .nav { gap: .9rem; }
+      .nav a { font-size: .88rem; }
+      .nav .nav-cta { padding: .45rem .8rem; }
+      .brand span { font-size: 1.1rem; }
+      .brand svg { width: 28px; height: 28px; }
+      form.ticket-form { padding: 1.4rem; }
+    }
+    @media (max-width: 420px) {
+      .nav a:not(.nav-cta):nth-child(1) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Farmacia Vitalis, ir al inicio">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="8" fill="#0E4A43"/>
+          <path d="M17 9h6v8h8v6h-8v8h-6v-8H9v-6h8z" fill="#FFFFFF"/>
+        </svg>
+        <span>Farmacia Vitalis</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="index.html#servicios">Servicios</a>
+        <a href="index.html#contenido">Contenido</a>
+        <a class="nav-cta" href="index.html#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Portada -->
+    <section class="help-hero">
+      <div class="wrap">
+        <h1>¿En qué podemos ayudarle hoy?</h1>
+        <p>Encuentre respuestas rápidas, consulte nuestras guías o abra un ticket de soporte. Nuestro equipo farmacéutico responde en menos de 24 horas hábiles.</p>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="faq-search" placeholder="Buscar una pregunta, tema o palabra clave..." aria-label="Buscar en la mesa de ayuda">
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorías rápidas -->
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title">Categorías de ayuda</h2>
+        <p class="section-intro">Seleccione el tema sobre el que necesita asistencia.</p>
+
+        <div class="quick-grid">
+          <a class="quick-card" href="#faq" data-quick="domicilios">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+            <h3>Domicilios</h3>
+            <p>Estado del pedido, cobertura, tiempos de entrega y control de temperatura.</p>
+          </a>
+          <a class="quick-card" href="#faq" data-quick="medicamentos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 20.5 3.5 13.5a4.95 4.95 0 0 1 7-7l7 7a4.95 4.95 0 0 1-7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+            <h3>Medicamentos</h3>
+            <p>Disponibilidad, fórmulas médicas, genéricos y uso correcto.</p>
+          </a>
+          <a class="quick-card" href="#faq" data-quick="convenios">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <h3>Convenios empresariales</h3>
+            <p>Facturación, botiquines, pedidos programados y contratos.</p>
+          </a>
+          <a class="quick-card" href="#faq" data-quick="pagos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/></svg>
+            <h3>Pagos y facturación</h3>
+            <p>Medios de pago, factura electrónica y reclamaciones.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preguntas frecuentes -->
+    <section class="section" id="faq" style="padding-top: 0;">
+      <div class="wrap">
+        <h2 class="section-title">Preguntas frecuentes</h2>
+        <p class="section-intro">Las respuestas más consultadas por nuestros pacientes y empresas.</p>
+
+        <div class="faq-list" id="faq-list">
+
+          <div class="faq-item" data-category="domicilios" data-keywords="domicilio envio entrega pedido cobertura">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cuánto tarda un domicilio y cuál es su cobertura?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Los domicilios dentro del perímetro urbano se entregan entre 45 y 90 minutos posteriores a la confirmación del pedido. La cobertura incluye el casco urbano y barrios aledaños.</p>
+              <p>Para pedidos fuera de la zona de cobertura, coordinamos con el paciente un punto de recogida o un servicio especial de mensajería.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="domicilios" data-keywords="cadena frio refrigerados temperatura">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cómo garantizan la cadena de frío en los domicilios?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Utilizamos neveras portátiles con geles refrigerantes y registradores de temperatura para medicamentos que requieren conservación entre 2 °C y 8 °C.</p>
+              <p>Al recibir el pedido, el domiciliario le indicará la temperatura de transporte y le pedirá confirmar el estado del empaque.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="medicamentos" data-keywords="formula prescripcion receta medica">
+            <button class="faq-question" aria-expanded="false">
+              ¿Puedo solicitar un medicamento solo con la fórmula médica?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Sí. Los medicamentos de venta bajo fórmula requieren prescripción médica vigente. Puede enviarla por WhatsApp o correo, y nuestro químico farmacéutico la validará antes de dispensar.</p>
+              <p>Aceptamos fórmulas físicas y electrónicas. En caso de dudas sobre la dosis, nos comunicamos con el paciente antes de la entrega.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="medicamentos" data-keywords="generico marca equivalencia precio">
+            <button class="faq-question" aria-expanded="false">
+              ¿Los medicamentos genéricos son igual de efectivos?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Los medicamentos genéricos autorizados cumplen con los mismos estándares de calidad, seguridad y eficacia que el producto de marca de referencia.</p>
+              <p>Si tiene alguna duda, nuestro químico farmacéutico puede orientarle según el principio activo y la presentación.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="convenios" data-keywords="empresa botiquin contrato facturacion">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cómo funciona un convenio empresarial?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>El convenio incluye suministro programado de botiquines, atención prioritaria para colaboradores y facturación mensual o por evento.</p>
+              <p>Para iniciar, escríbanos con el nombre de la empresa, el número aproximado de colaboradores y la ciudad. Le enviamos una propuesta en 2 días hábiles.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="convenios" data-keywords="pedido programado recurrente">
+            <button class="faq-question" aria-expanded="false">
+              ¿Puedo programar pedidos recurrentes?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Sí. Empresas con convenio pueden programar entregas semanales, quincenales o mensuales según su consumo.</p>
+              <p>El área de convenios le asignará un asesor para ajustar el calendario y los productos según necesidad.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="pagos" data-keywords="pago tarjeta efectivo transferencia">
+            <button class="faq-question" aria-expanded="false">
+              ¿Qué medios de pago aceptan?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Aceptamos efectivo, tarjetas débito y crédito, transferencias bancarias y pagos por pasarela en línea.</p>
+              <p>Para convenios empresariales ofrecemos facturación a crédito con plazos según contrato.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" data-category="pagos" data-keywords="factura electronica reclamacion">
+            <button class="faq-question" aria-expanded="false">
+              ¿Cómo obtengo mi factura electrónica?
+              <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Al confirmar su compra, indique su correo y número de documento. La factura electrónica llega al correo registrado dentro de las 24 horas siguientes.</p>
+              <p>Si no la recibe, escríbanos a <a href="mailto:facturacion@farmaciavitalis.com">facturacion@farmaciavitalis.com</a> con el número de pedido.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="empty-state" id="faq-empty">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <p>No encontramos preguntas que coincidan con su búsqueda.</p>
+          <p style="font-size:.9rem;">Pruebe con otra palabra o abra un ticket de soporte más abajo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Canales de soporte -->
+    <section class="section support-section">
+      <div class="wrap">
+        <h2 class="section-title">Canales de soporte</h2>
+        <p class="section-intro">Elija el medio que prefiera para comunicarse con nuestro equipo.</p>
+
+        <div class="support-grid">
+          <div class="support-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>
+            <h3>WhatsApp</h3>
+            <p>Atención inmediata para consultas de disponibilidad, pedidos y estado de domicilios.</p>
+            <a href="https://wa.me/570000000000" target="_blank" rel="noopener">
+              Escribir por WhatsApp
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="support-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+            <h3>Línea telefónica</h3>
+            <p>Lunes a viernes de 7:00 a. m. a 9:00 p. m. Sábados de 8:00 a. m. a 8:00 p. m.</p>
+            <a href="tel:+576010000000">
+              Llamar ahora
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <div class="support-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            <h3>Correo electrónico</h3>
+            <p>Para consultas detalladas, convenios empresariales y solicitudes de facturación.</p>
+            <a href="mailto:soporte@farmaciavitalis.com">
+              Enviar correo
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ticket de soporte -->
+    <section class="section" id="ticket">
+      <div class="wrap">
+        <h2 class="section-title">Abrir un ticket de soporte</h2>
+        <p class="section-intro">Si no encontró su respuesta, cuéntenos su caso. Le responderemos en menos de 24 horas hábiles.</p>
+
+        <div class="ticket-grid">
+          <div class="ticket-info">
+            <p>Antes de enviar su ticket, tenga a mano:</p>
+            <ul>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Número de pedido o factura (si aplica).
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Nombre del medicamento o servicio consultado.
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Descripción clara del problema o solicitud.
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                Un correo o teléfono donde podamos contactarle.
+              </li>
+            </ul>
+          </div>
+
+          <form class="ticket-form" id="form-ticket" novalidate>
+            <div class="field">
+              <label for="t-nombre">Nombre completo</label>
+              <input id="t-nombre" name="nombre" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="t-correo">Correo electrónico</label>
+              <input id="t-correo" name="correo" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="t-categoria">Categoría</label>
+              <select id="t-categoria" name="categoria" required>
+                <option value="">Seleccione una opción</option>
+                <option value="domicilios">Domicilios</option>
+                <option value="medicamentos">Medicamentos</option>
+                <option value="convenios">Convenios empresariales</option>
+                <option value="pagos">Pagos y facturación</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="t-mensaje">Descripción del caso</label>
+              <textarea id="t-mensaje" name="mensaje" required placeholder="Cuéntenos con detalle qué necesita o qué inconveniente presenta."></textarea>
+            </div>
+            <button class="btn btn-solid" type="submit">Enviar ticket</button>
+            <p class="form-status" id="ticket-status" role="status" aria-live="polite"></p>
+            <p class="form-hint">Al enviar se abrirá su programa de correo con el ticket listo para soporte@farmaciavitalis.com.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="anio">2026</span> Farmacia Vitalis. Todos los derechos reservados.</p>
+      <p><a href="index.html">Volver al inicio</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Año dinámico
+    document.getElementById('anio').textContent = new Date().getFullYear();
+
+    // Acordeón FAQ
+    var faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function (item) {
+      var btn = item.querySelector('.faq-question');
+      btn.addEventListener('click', function () {
+        var isOpen = item.classList.contains('open');
+        // Cerrar todos
+        faqItems.forEach(function (other) {
+          other.classList.remove('open');
+          other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        // Abrir el actual si estaba cerrado
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Buscador FAQ
+    var searchInput = document.getElementById('faq-search');
+    var emptyState = document.getElementById('faq-empty');
+
+    searchInput.addEventListener('input', function () {
+      var term = this.value.trim().toLowerCase();
+      var visible = 0;
+      faqItems.forEach(function (item) {
+        var text = item.textContent.toLowerCase();
+        var keywords = item.getAttribute('data-keywords') || '';
+        var match = !term || text.indexOf(term) !== -1 || keywords.indexOf(term) !== -1;
+        item.hidden = !match;
+        if (match) visible++;
+      });
+      emptyState.classList.toggle('visible', visible === 0);
+    });
+
+    // Categorías rápidas: llevan a FAQ y filtran por categoría
+    document.querySelectorAll('.quick-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var cat = this.getAttribute('data-quick');
+        // marcar activo visualmente
+        document.querySelectorAll('.quick-card').forEach(function (c) { c.style.borderColor = ''; });
+        this.style.borderColor = 'var(--pine)';
+        // filtrar FAQ por categoría (dejando el buscador en blanco)
+        searchInput.value = '';
+        var visible = 0;
+        faqItems.forEach(function (item) {
+          var match = item.getAttribute('data-category') === cat;
+          item.hidden = !match;
+          if (match) visible++;
+        });
+        emptyState.classList.toggle('visible', visible === 0);
+      });
+    });
+
+    // Formulario de ticket
+    var formTicket = document.getElementById('form-ticket');
+    var statusTicket = document.getElementById('ticket-status');
+
+    formTicket.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nombre = formTicket.nombre.value.trim();
+      var correo = formTicket.correo.value.trim();
+      var categoria = formTicket.categoria.value;
+      var mensaje = formTicket.mensaje.value.trim();
+
+      if (!nombre || !correo || !categoria || !mensaje) {
+        statusTicket.style.color = '#9B1C1C';
+        statusTicket.textContent = 'Complete todos los campos para enviar su ticket.';
+        return;
+      }
+      // Validación simple de correo
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+        statusTicket.style.color = '#9B1C1C';
+        statusTicket.textContent = 'Ingrese un correo electrónico válido.';
+        return;
+      }
+
+      var asunto = '[Ticket] ' + categoria + ' - ' + nombre;
+      var cuerpo = 'Nombre: ' + nombre + '\nCorreo: ' + correo + '\nCategoría: ' + categoria + '\n\n' + mensaje;
+
+      statusTicket.style.color = '';
+      statusTicket.textContent = 'Abriendo su programa de correo…';
+      window.location.href = 'mailto:soporte@farmaciavitalis.com?subject=' +
+        encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+    });
+  </script>
+</body>
+</html>
