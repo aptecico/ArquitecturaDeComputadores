@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Farmacia Vitalis | Atención farmacéutica profesional</title>
-  <meta name="description" content="Farmacia Vitalis: medicamentos, atención farmacéutica, domicilios y convenios empresariales.">
+  <meta name="description" content="Farmacia Vitalis: medicamentos, atención farmacéutica, domicilios, convenios empresariales y contenido educativo sobre salud.">
   <style>
     :root {
       --pine: #0E4A43;
@@ -15,6 +15,7 @@
       --muted: #4F5F5A;
       --line: #D3DFDA;
       --white: #FFFFFF;
+      --accent: #F0B429;
       --font-body: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-head: Georgia, "Times New Roman", serif;
     }
@@ -32,7 +33,7 @@
     h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; margin: 0; font-weight: 700; }
     p { margin: 0; }
     a { color: inherit; }
-    :focus-visible { outline: 3px solid #F0B429; outline-offset: 3px; border-radius: 2px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
     .wrap { width: min(1120px, 100% - 2.5rem); margin-inline: auto; }
 
@@ -119,6 +120,220 @@
     .service h3 { font-size: 1.15rem; margin-bottom: .45rem; }
     .service p { color: var(--muted); font-size: .97rem; }
 
+    /* ===== NUEVA SECCIÓN CONTENIDO ===== */
+    .content-section {
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+    .content-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .content-header .section-intro { margin-top: .5rem; }
+
+    /* Filtros */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+    .filter-btn {
+      background: var(--white);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: .45rem 1rem;
+      border-radius: 50px;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s ease;
+      font-family: inherit;
+    }
+    .filter-btn:hover { border-color: var(--pine); color: var(--pine); }
+    .filter-btn.active {
+      background: var(--pine);
+      color: var(--white);
+      border-color: var(--pine);
+    }
+
+    /* Grid de artículos */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .article-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(14,74,67,.12);
+    }
+    .article-card[hidden] { display: none; }
+
+    .article-media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--mint);
+    }
+    .article-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+    .article-card:hover .article-media img { transform: scale(1.05); }
+
+    .article-tag {
+      position: absolute;
+      top: .75rem; left: .75rem;
+      background: var(--pine);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: .28rem .6rem;
+      border-radius: 3px;
+    }
+
+    .article-body {
+      padding: 1.25rem 1.35rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      flex: 1;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+    .article-meta svg {
+      width: 15px; height: 15px;
+      stroke: var(--muted); fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .article-body h3 {
+      font-size: 1.12rem;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .article-body p {
+      color: var(--muted);
+      font-size: .93rem;
+      flex: 1;
+    }
+    .article-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      color: var(--pine);
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+      margin-top: .4rem;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .article-link svg {
+      width: 16px; height: 16px;
+      stroke: var(--pine); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform .2s ease;
+    }
+    .article-link:hover svg { transform: translateX(3px); }
+
+    /* Estado vacío */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+    .empty-state.visible { display: block; }
+    .empty-state svg {
+      width: 44px; height: 44px;
+      stroke: var(--muted); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+      margin-bottom: .75rem;
+    }
+
+    /* Modal de artículo */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,54,48,.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 50;
+      backdrop-filter: blur(3px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: 10px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn .25s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-close {
+      position: absolute;
+      top: .75rem; right: .75rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .modal-close:hover { background: var(--mint); }
+    .modal-close svg {
+      width: 18px; height: 18px;
+      stroke: var(--ink); fill: none;
+      stroke-width: 2; stroke-linecap: round;
+    }
+    .modal-media { aspect-ratio: 16 / 9; overflow: hidden; }
+    .modal-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .modal-content { padding: 1.75rem 2rem 2rem; }
+    .modal-content h3 {
+      font-size: 1.5rem;
+      color: var(--pine);
+      margin-bottom: .5rem;
+    }
+    .modal-content .article-meta { margin-bottom: 1rem; }
+    .modal-content p { color: var(--muted); margin-bottom: 1rem; }
+    .modal-content ul { color: var(--muted); padding-left: 1.25rem; margin: 0 0 1rem; }
+    .modal-content li { margin-bottom: .4rem; }
+
     /* Contacto */
     .contact { background: var(--mint); }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; margin-top: 2.5rem; align-items: start; }
@@ -136,7 +351,7 @@
       padding: .7rem .8rem; border: 1px solid #9DB3AB; border-radius: 4px; background: var(--white);
     }
     .field textarea { min-height: 120px; resize: vertical; }
-    .field input:focus, .field textarea:focus { border-color: var(--pine); outline: 3px solid #F0B429; outline-offset: 1px; }
+    .field input:focus, .field textarea:focus { border-color: var(--pine); outline: 3px solid var(--accent); outline-offset: 1px; }
     .form-status { min-height: 1.4rem; font-size: .93rem; color: var(--pine); font-weight: 600; }
     .form-hint { font-size: .85rem; color: var(--muted); }
 
@@ -148,23 +363,29 @@
     @media (max-width: 900px) {
       .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .service-list { grid-template-columns: repeat(2, 1fr); }
+      .article-grid { grid-template-columns: repeat(2, 1fr); }
       .hero { padding: 3.5rem 0; }
       .section { padding: 3.5rem 0; }
     }
     @media (max-width: 600px) {
       .service-list { grid-template-columns: 1fr; }
+      .article-grid { grid-template-columns: 1fr; }
       .nav { gap: .9rem; }
       .nav a { font-size: .88rem; }
       .nav .nav-cta { padding: .45rem .8rem; }
       .brand span { font-size: 1.1rem; }
       .brand svg { width: 28px; height: 28px; }
       form.contact-form { padding: 1.4rem; }
+      .modal-content { padding: 1.4rem 1.4rem 1.75rem; }
+      .content-header { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 420px) {
       .nav a:not(.nav-cta):nth-child(1) { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
+      .article-card { transition: none; }
+      .modal { animation: none; }
     }
   </style>
 </head>
@@ -182,6 +403,7 @@
       <nav class="nav" aria-label="Principal">
         <a href="#nosotros">Nosotros</a>
         <a href="#servicios">Servicios</a>
+        <a href="#contenido">Contenido</a>
         <a class="nav-cta" href="#contacto">Contacto</a>
       </nav>
     </div>
@@ -196,7 +418,7 @@
           <p class="lead">Dispensamos medicamentos con orientación farmacéutica profesional, para personas, familias y empresas.</p>
           <div class="hero-actions">
             <a class="btn btn-light" href="#servicios">Ver servicios</a>
-            <a class="btn btn-outline" href="#contacto">Escribirnos</a>
+            <a class="btn btn-outline" href="#contenido">Explorar contenido</a>
           </div>
         </div>
 
@@ -281,74 +503,98 @@
       </div>
     </section>
 
-    <!-- Contacto -->
-    <section class="section contact" id="contacto">
+    <!-- ===== NUEVA SECCIÓN CONTENIDO ===== -->
+    <section class="section content-section" id="contenido">
       <div class="wrap">
-        <h2 class="section-title">Contacto</h2>
-        <p class="section-intro">Consulte disponibilidad, solicite un domicilio o pida una propuesta para su empresa.</p>
-
-        <div class="contact-grid">
-          <ul class="contact-list">
-            <li><strong>Dirección</strong>Calle 123 # 45-67, Local 2</li>
-            <li><strong>Teléfono</strong><a href="tel:+576010000000">(601) 000 0000</a></li>
-            <li><strong>WhatsApp</strong><a href="https://wa.me/570000000000" target="_blank" rel="noopener">+57 300 000 0000</a></li>
-            <li><strong>Correo</strong><a href="mailto:contacto@farmaciavitalis.com">contacto@farmaciavitalis.com</a></li>
-          </ul>
-
-          <form class="contact-form" id="form-contacto" novalidate>
-            <div class="field">
-              <label for="nombre">Nombre</label>
-              <input id="nombre" name="nombre" type="text" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="telefono">Teléfono o correo</label>
-              <input id="telefono" name="telefono" type="text" autocomplete="tel" required>
-            </div>
-            <div class="field">
-              <label for="mensaje">Mensaje</label>
-              <textarea id="mensaje" name="mensaje" required></textarea>
-            </div>
-            <button class="btn btn-solid" type="submit">Enviar mensaje</button>
-            <p class="form-status" id="estado" role="status" aria-live="polite"></p>
-            <p class="form-hint">Al enviar se abrirá su programa de correo con el mensaje listo.</p>
-          </form>
+        <div class="content-header">
+          <div>
+            <h2 class="section-title">Contenido</h2>
+            <p class="section-intro">Artículos, guías y recomendaciones elaboradas por nuestro equipo farmacéutico para cuidar su salud.</p>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar contenido por categoría">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="medicamentos">Medicamentos</button>
+            <button class="filter-btn" data-filter="prevencion">Prevención</button>
+            <button class="filter-btn" data-filter="empresas">Empresas</button>
+            <button class="filter-btn" data-filter="cuidado">Cuidado personal</button>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
 
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <p>© <span id="anio">2026</span> Farmacia Vitalis. Todos los derechos reservados.</p>
-      <p>Los medicamentos de venta bajo fórmula requieren prescripción médica.</p>
-    </div>
-  </footer>
+        <div class="article-grid" id="article-grid">
 
-  <script>
-    document.getElementById('anio').textContent = new Date().getFullYear();
+          <!-- Artículo 1 -->
+          <article class="article-card" data-category="medicamentos">
+            <div class="article-media">
+              <span class="article-tag">Medicamentos</span>
+              <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Blíster de medicamentos y termómetro sobre fondo claro" loading="lazy">
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>5 min de lectura</span>
+              </div>
+              <h3>Cómo leer correctamente la fórmula médica</h3>
+              <p>Dosis, frecuencia, vía de administración y duración del tratamiento: claves para un uso seguro.</p>
+              <button class="article-link" data-article="art1">
+                Leer artículo
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </article>
 
-    var form = document.getElementById('form-contacto');
-    var estado = document.getElementById('estado');
+          <!-- Artículo 2 -->
+          <article class="article-card" data-category="prevencion">
+            <div class="article-media">
+              <span class="article-tag">Prevención</span>
+              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" alt="Profesional de salud revisando resultados de laboratorio" loading="lazy">
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>4 min de lectura</span>
+              </div>
+              <h3>Control de tensión arterial en casa</h3>
+              <p>Aprenda a tomarse la presión correctamente y cuándo consultar a su médico.</p>
+              <button class="article-link" data-article="art2">
+                Leer artículo
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </article>
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var nombre = form.nombre.value.trim();
-      var contacto = form.telefono.value.trim();
-      var mensaje = form.mensaje.value.trim();
+          <!-- Artículo 3 -->
+          <article class="article-card" data-category="empresas">
+            <div class="article-media">
+              <span class="article-tag">Empresas</span>
+              <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Equipo de trabajo reunido en oficina" loading="lazy">
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>6 min de lectura</span>
+              </div>
+              <h3>Botiquín empresarial: qué debe incluir</h3>
+              <p>Lista básica y frecuencia de revisión para cumplir con las normas de seguridad laboral.</p>
+              <button class="article-link" data-article="art3">
+                Leer artículo
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </article>
 
-      if (!nombre || !contacto || !mensaje) {
-        estado.style.color = '#9B1C1C';
-        estado.textContent = 'Complete su nombre, un dato de contacto y el mensaje para continuar.';
-        return;
-      }
-
-      var asunto = 'Consulta desde la página web - ' + nombre;
-      var cuerpo = 'Nombre: ' + nombre + '\nContacto: ' + contacto + '\n\n' + mensaje;
-      estado.style.color = '';
-      estado.textContent = 'Abriendo su programa de correo…';
-      window.location.href = 'mailto:contacto@farmaciavitalis.com?subject=' +
-        encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
-    });
-  </script>
-</body>
-</html>
+          <!-- Artículo 4 -->
+          <article class="article-card" data-category="cuidado">
+            <div class="article-media">
+              <span class="article-tag">Cuidado personal</span>
+              <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80" alt="Productos de cuidado personal y cremas sobre mesa" loading="lazy">
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>3 min de lectura</span>
+              </div>
+              <h3>Protección solar: mitos y verdades</h3>
+              <p>FPS, reaplicación y horas de mayor riesgo. Lo que todo paciente debe saber.</p>
+              <button class="article-link" data-article="art4">
+                Leer artículo
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12
